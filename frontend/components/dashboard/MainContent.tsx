@@ -9,9 +9,10 @@ import React from 'react';
 
 interface MainContentProps {
   setSidebarOpen: (open: boolean) => void;
+  sidebarOpen: boolean;
 }
 
-export const MainContent: React.FC<MainContentProps> = ({ setSidebarOpen }) => {
+export const MainContent: React.FC<MainContentProps> = ({ setSidebarOpen, sidebarOpen }) => {
   const weather = {
     temperature: 72,
     condition: "Partly Cloudy"
@@ -29,7 +30,7 @@ export const MainContent: React.FC<MainContentProps> = ({ setSidebarOpen }) => {
         {/* Left: Menu + Title */}
         <div className="flex items-center gap-2 min-w-0">
           <button 
-            onClick={() => setSidebarOpen(true)}
+            onClick={() => setSidebarOpen(!sidebarOpen)}
             className="p-1 sm:p-2 flex-shrink-0 text-muted-foreground hover:text-foreground"
             aria-label="Toggle sidebar"
           >

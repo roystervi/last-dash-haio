@@ -34,7 +34,7 @@ export default function App() {
       />
       
       <div className="flex-1">
-        <MainContent setSidebarOpen={setSidebarOpen} />
+        <MainContent setSidebarOpen={setSidebarOpen} sidebarOpen={sidebarOpen} />
       </div>
     </main>
   )
