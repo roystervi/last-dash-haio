@@ -11,7 +11,8 @@ import {
   Mic,
   X,
   Settings,
-  BarChart3
+  BarChart3,
+  Bot
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { getSidebarClass } from '@/lib/dashboard-utils';
@@ -21,9 +22,18 @@ interface SidebarProps {
   setSidebarOpen: (open: boolean) => void;
   audioLevels: number[];
   screenSize: 'mobile' | 'tablet' | 'desktop';
+  currentView: 'dashboard' | 'mcp' | 'analytics' | 'settings';
+  setCurrentView: (view: 'dashboard' | 'mcp' | 'analytics' | 'settings') => void;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen, audioLevels, screenSize }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ 
+  sidebarOpen, 
+  setSidebarOpen, 
+  audioLevels, 
+  screenSize,
+  currentView,
+  setCurrentView
+}) => {
   return (
     <div className={getSidebarClass(screenSize, sidebarOpen, cn)}>
       {/* Mobile Close Button */}
@@ -94,9 +104,21 @@ export const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen, a
             </div>
 
             {/* My Workstation - Highlighted */}
-            <div className="bg-primary rounded-xl p-3 flex flex-col items-center cursor-pointer">
-              <Home className="w-6 h-6 mb-2 text-primary-foreground" />
-              <p className="text-sm font-medium text-primary-foreground">My Workstation</p>
+            <div 
+              onClick={() => setCurrentView('dashboard')}
+              className={cn(
+                "rounded-xl p-3 flex flex-col items-center cursor-pointer",
+                currentView === 'dashboard' ? "bg-primary" : "bg-card hover:bg-accent"
+              )}
+            >
+              <Home className={cn(
+                "w-6 h-6 mb-2",
+                currentView === 'dashboard' ? "text-primary-foreground" : "text-muted-foreground"
+              )} />
+              <p className={cn(
+                "text-sm font-medium",
+                currentView === 'dashboard' ? "text-primary-foreground" : "text-foreground"
+              )}>My Workstation</p>
             </div>
 
             {/* Add New Room */}
@@ -139,15 +161,39 @@ export const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen, a
           </div>
 
           {/* Analytics Link */}
-          <div className="mt-4 flex items-center gap-3 w-full p-3 rounded-xl bg-card hover:bg-accent transition-colors cursor-pointer">
-            <BarChart3 className="w-5 h-5 text-foreground" />
-            <span className="text-sm text-foreground">Analytics</span>
+          <div 
+            onClick={() => setCurrentView('analytics')}
+            className={cn(
+              "mt-4 flex items-center gap-3 w-full p-3 rounded-xl transition-colors cursor-pointer",
+              currentView === 'analytics' ? "bg-primary text-primary-foreground" : "bg-card hover:bg-accent"
+            )}
+          >
+            <BarChart3 className="w-5 h-5" />
+            <span className="text-sm">Analytics</span>
+          </div>
+
+          {/* MCP Link */}
+          <div 
+            onClick={() => setCurrentView('mcp')}
+            className={cn(
+              "mt-2 flex items-center gap-3 w-full p-3 rounded-xl transition-colors cursor-pointer",
+              currentView === 'mcp' ? "bg-primary text-primary-foreground" : "bg-card hover:bg-accent"
+            )}
+          >
+            <Bot className="w-5 h-5" />
+            <span className="text-sm">MCP</span>
           </div>
 
           {/* Settings Link */}
-          <div className="mt-2 flex items-center gap-3 w-full p-3 rounded-xl bg-card hover:bg-accent transition-colors cursor-pointer">
-            <Settings className="w-5 h-5 text-foreground" />
-            <span className="text-sm text-foreground">Settings</span>
+          <div 
+            onClick={() => setCurrentView('settings')}
+            className={cn(
+              "mt-2 flex items-center gap-3 w-full p-3 rounded-xl transition-colors cursor-pointer",
+              currentView === 'settings' ? "bg-primary text-primary-foreground" : "bg-card hover:bg-accent"
+            )}
+          >
+            <Settings className="w-5 h-5" />
+            <span className="text-sm">Settings</span>
           </div>
         </div>
       </div>
