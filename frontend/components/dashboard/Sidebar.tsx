@@ -143,6 +143,12 @@ export const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen, a
             <BarChart3 className="w-5 h-5 text-foreground" />
             <span className="text-sm text-foreground">Analytics</span>
           </div>
+
+          {/* Settings Link */}
+          <div className="mt-2 flex items-center gap-3 w-full p-3 rounded-xl bg-card hover:bg-accent transition-colors cursor-pointer">
+            <Settings className="w-5 h-5 text-foreground" />
+            <span className="text-sm text-foreground">Settings</span>
+          </div>
         </div>
       </div>
     </div>
