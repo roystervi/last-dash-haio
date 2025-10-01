@@ -92,6 +92,8 @@ export const MCPDashboard = () => {
       setExecuting(null);
     }
   };
+
+  const loadMCPData = async () => {
     try {
       setLoading(true);
       const [toolsRes, tasksRes, functionsRes, contextRes] = await Promise.all([
